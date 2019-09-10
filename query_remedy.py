@@ -7,7 +7,7 @@ import pandas as pd
 conxn = pyodbc.connect('DSN=AR System ODBC Data Source',autocommit=True) 
 cursor = conxn.cursor()
 
-#aca puedo cambiar las querys por la que se necesiten
+# aca puedo cambiar las querys por la que se necesiten
 
 query_inc = "SELECT HPD_Help_Desk.Incident_Number,\
 HPD_Help_Desk.Service_Type, \
@@ -30,8 +30,8 @@ WHERE (TMS_Task.Create_Date >= {ts '2016-01-01 00:00:00'}) \
 AND (TMS_Task.Status <> 'Closed') \
 ORDER BY TMS_Task.Task_ID DESC"
 
-#almacena las los datos consultados en un DataFrame de Pandas
-#con esto ya puedo manipular los datos
+# almacena las los datos consultados en un DataFrame de Pandas
+# con esto ya puedo manipular los datos
 
 data_inc = pd.read_sql(query_inc,conxn)
 data_tas = pd.read_sql(query_tas,conxn)
@@ -42,7 +42,7 @@ conxn.close()
 
 # cruzo los datos segun el numero de incidente (une las dos consultas)
 data = pd.merge(data_tas, data_inc, left_on=data_tas.iloc[:,0], right_on=data_inc.iloc[:,0], how='left')
-#unir las consultas crea columnas duplicadas, por eso las borro
+# unir las consultas crea columnas duplicadas, por eso las borro
 data = data.drop(['key_0','Incident_Number'], 1)
 
 
