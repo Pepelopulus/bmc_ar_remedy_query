@@ -8,7 +8,7 @@ conxn = pyodbc.connect('DSN=AR System ODBC Data Source',autocommit=True)
 cursor = conxn.cursor()
 
 # aca puedo cambiar las querys por la que se necesiten
-
+# el driver odbc es limitado, y no permite cualquier tipo de consulta
 query_inc = "SELECT HPD_Help_Desk.Incident_Number,\
 HPD_Help_Desk.Service_Type, \
 HPD_Help_Desk.Description \
@@ -17,7 +17,7 @@ WHERE (HPD_Help_Desk.Reported_Date>{ts '2016-11-01 00:00:00'}) \
 AND (HPD_Help_Desk.Status <> 'Closed') \
 ORDER BY HPD_Help_Desk.Incident_Number DESC"
 
-
+#puede ser cualquier consulta, obvio
 query_tas = "SELECT TMS_Task.RootRequestID,\
 TMS_Task.Task_ID,\
 TMS_Task.Create_Date,\
